@@ -1,45 +1,44 @@
 import torch.nn as nn
-from model_component import *
 import numpy as np
+import torch.nn.functional as F
+import torch
 
 class Generator(nn.Module):
-    def __init__(self):
+    def __init__(self, input_width):
         super().__init__()
+        self.input_width = input_width
+        self.linear = nn.Linear(4096, 4096) # 64
+        self.conv1 = nn.Conv2d(1, 8, kernel_size=4, stride=2, padding=1) # 32
+        self.conv2 = nn.Conv2d(8, 32, kernel_size=4, stride=2, padding=1)  # 16
+        self.convT3 = nn.ConvTranspose2d(64, 32, kernel_size=4, stride=2, padding=1)  # 32
+        self.convT4 = nn.ConvTranspose2d(32, 16, kernel_size=4, stride=2, padding=1) # 64
+        self.convT5 = nn.ConvTranspose2d(16, 8, kernel_size=4, stride=2, padding=1) # 128
+        self.convT6 = nn.ConvTranspose2d(8, 3, kernel_size=4, stride=2, padding=1) # 256
 
-        self.progression = nn.ModuleList(
-            [
-                StyledConvBlock(512, 512, 3, 1, initial=True, Style_first_layer=True),  # 4
-                StyledConvBlock(512, 512, 3, 1, upsample=True),  # 8
-                StyledConvBlock(512, 512, 3, 1, upsample=True),  # 16
-                StyledConvBlock(512, 512, 3, 1, upsample=True),  # 32
-                StyledConvBlock(512, 256, 3, 1, upsample=True),  # 64
-                StyledConvBlock(256, 128, 3, 1, upsample=True, fused=True),  # 128
-                StyledConvBlock(128, 64, 3, 1, upsample=True, fused=True)  # 256
-                # StyledConvBlock(64, 32, 3, 1, upsample=True, fused=fused),  # 512
-                # StyledConvBlock(32, 16, 3, 1, upsample=True, fused=fused),  # 1024
-            ]
-        )
+        self.b1 = nn.BatchNorm2d(8)
+        self.b2 = nn.BatchNorm2d(32)
+        self.b3 = nn.BatchNorm2d(32)
+        self.b4 = nn.BatchNorm2d(16)
+        self.b5 = nn.BatchNorm2d(8)
 
-        self.to_rgb = nn.ModuleList(
-            [
-                EqualConv2d(512, 3, 1),
-                EqualConv2d(512, 3, 1),
-                EqualConv2d(512, 3, 1),
-                EqualConv2d(512, 3, 1),
-                EqualConv2d(256, 3, 1),
-                EqualConv2d(128, 3, 1),
-                EqualConv2d(64, 3, 1)
-                # EqualConv2d(32, 3, 1),
-                # EqualConv2d(16, 3, 1),
-            ]
-        )
 
-    def forward(self, feature, noise, step=6):
-        out = np.random.randn(feature.shape[0],512,4,4)
-        for i, (conv, to_rgb) in enumerate(zip(self.progression, self.to_rgb)):
-            out, style_out = conv(out, feature, noise[i])
-            feature = style_out
-            if i == step:
-                out = to_rgb(out)
-                return out
-        return to_rgb(out)
+        self.convN1 = nn.Conv2d(1, 8, kernel_size=4, stride=2, padding=1)  # for noise
+        self.convN2 = nn.Conv2d(8, 32, kernel_size=4, stride=2, padding=1)
+        self.bn1 = nn.BatchNorm2d(8)
+        self.bn2 = nn.BatchNorm2d(32)
+
+
+
+    def forward(self, inputs, noise):
+        out = F.relu(self.linear(inputs)).view(-1, 1, self.input_width, self.input_width)
+        out = F.relu(self.b1(self.conv1(out)))
+        out = F.relu(self.b2(self.conv2(out)))
+        outN = F.relu(self.bn1(self.convN1(noise)))
+        outN = F.relu((self.bn2(self.convN2(outN))))
+        out = torch.cat([out, outN], 1)
+        out = F.relu(self.b3(self.convT3(out)))
+        out = F.relu(self.b4(self.convT4(out)))
+        out = F.relu(self.b5(self.convT5(out)))
+        out = torch.tanh(self.convT6(out))
+        return out
+

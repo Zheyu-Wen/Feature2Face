@@ -15,7 +15,7 @@ def Face_Visualization(photos, num_col, num_row):
   fig, ax = plt.subplots(num_row, num_col)
   for ir in range(num_row):
     for ic in range(num_col):
-      ax[ir, ic].imshow(photos[ir*num_col+ic])
+      ax[ir, ic].imshow(photos[ir*num_col+ic].transpose(1,2,0))
   return 0
 
 def Loss_Visualization(Dloss_hist, Gloss_hist, num_epoch):

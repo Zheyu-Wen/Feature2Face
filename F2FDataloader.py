@@ -6,12 +6,11 @@ from torchvision.transforms import transforms
 import torch
 
 class Dataloader_for_Inverse(Dataset):
-    def __init__(self, data_dir, train=True, size=256, n_hidden=128):
+    def __init__(self, data_dir, train=True, size=256):
         super().__init__()
         self.embeds = sorted(glob.glob(f'{data_dir}/*face.npy', recursive=True))
         self.images = [direc.replace("face", "jpg") for direc in self.embeds]
         self.train = train
-        self.n_hidden = n_hidden
         self.transform = transforms.Compose([
             transforms.Resize(size),
             transforms.ToTensor()
