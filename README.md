@@ -2,11 +2,9 @@
 
 [![Build Status](https://travis-ci.com/CoderNoMercy/Feature2Face.svg?branch=master)](https://travis-ci.com/CoderNoMercy/Feature2Face)
 
-The part II of Speech to talking face
+The part II of Speech to talking face(Part I is for speech to face feature, and part III is for face to talking face)
 
-Language: python
-
-Objective: generate talking face just from speech.
+Language: python 3.6. 
 
 Method: 
 
