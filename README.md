@@ -1,5 +1,7 @@
 # Feature2Face
-https://travis-ci.com/CoderNoMercy/Feature2Face.svg?branch=master
+
+[![Build Status](https://travis-ci.com/CoderNoMercy/Feature2Face.svg?branch=master)](https://travis-ci.com/CoderNoMercy/Feature2Face)
+
 The part II of Speech to talking face
 
 Language: python
