@@ -2,7 +2,6 @@ torch
 torchvision
 tqdm
 numpy
-os
 matplotlib
 cv2
 PIL
