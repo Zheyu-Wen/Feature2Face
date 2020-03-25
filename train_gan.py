@@ -33,8 +33,8 @@ def train_FaceFeature2Face(G, D, dataloader, num_epoch, batch_size):
     Goptimizer = optim.Adam(G.parameters(), lr=1e-3, betas=(0.5, 0.999))
     # noise = np.zeros(7)/100
     lambda1 = 100
-    Dninner = 10
-    Gninner = 2
+    Dninner = 1
+    Gninner = 1
     for iters in range(num_epoch):
         for role in ["train", "val"]:
             Dloss_avg = 0

@@ -15,7 +15,7 @@ dataloader_dict = GAN_dataloader_dict(dataloader_dict, path="Feature2Face_data",
 G = Generator(64)
 D = Discriminator()
 
-num_epoch = 20
+num_epoch = 1
 Dloss_hist, Gloss_hist = train_FaceFeature2Face(G, D, dataloader_dict, num_epoch=num_epoch, batch_size=1)
 # Loss_Visualization(Dloss_hist, Gloss_hist, num_epoch)
 
