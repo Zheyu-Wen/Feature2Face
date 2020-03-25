@@ -8,13 +8,13 @@ Objective: generate talking face just from speech.
 
 Method: 
 
-Vgg-face net to extract face feature from face.
+1.Vgg-face net to extract face feature from face.
 
-Establish net to learn face feature from audio data.
+2.Establish net to learn face feature from audio data.
 
-(this repo) Use GAN to generate face from face feature
+3.(this repo) Use GAN to generate face from face feature
 
-VGG lip learning from audio
+4.VGG lip learning from audio
 
 # TODO list:
 
