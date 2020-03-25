@@ -12,4 +12,6 @@ script:
   - python main.py
   - python train_gan.py
  
- install: pip install --user -r requirements.txt
+ #install: pip install --user -r requirements.txt
+install:
+  - pip install -r requirements.txt
