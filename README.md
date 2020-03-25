@@ -16,9 +16,9 @@ VGG lip learning from audio
 
 # How to run
 The project has been divided into several part. In this repo you can train GAN to learn face from face feature. Run main.py to begin training. Data has been added to this repo.
-''' python
+```python
 python main.py
-'''
+```
 # File Instruction:
 F2FDataloader.py is the file that build data loader for this part
 F2FDiscriminator.py is network of discriminator in GAN
