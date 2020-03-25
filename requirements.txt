@@ -1,6 +1,5 @@
 torch
 torchvision
-math
 tqdm
 numpy
 os
