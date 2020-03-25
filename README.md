@@ -7,6 +7,7 @@ Language: python
 Objective: generate talking face just from speech.
 
 Method: 
+
 Vgg-face net to extract face feature from face.
 
 Establish net to learn face feature from audio data.
