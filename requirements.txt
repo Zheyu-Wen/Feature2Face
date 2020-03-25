@@ -2,6 +2,6 @@ torch
 torchvision
 tqdm
 numpy
-opencv
+opencv-python
 PIL
 glob
