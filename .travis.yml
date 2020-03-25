@@ -1,0 +1,15 @@
+language: python
+
+python:
+
+  - "3.6"
+
+script: 
+  - python F2FDataloader.py
+  - python F2FDiscriminator.py
+  - python F2FGenerator.py
+  - python Inference_Evaluation.py
+  - python main.py
+  - python train_gan.py
+ 
+ install: pip install --user -r requirements.txt
