@@ -2,25 +2,24 @@
 
 [![Build Status](https://travis-ci.com/CoderNoMercy/Feature2Face.svg?branch=master)](https://travis-ci.com/CoderNoMercy/Feature2Face)
 
-The part II of Speech to talking face(Part I is for speech to face feature, and part III is for face to talking face)
-
+Generate steady face from wav data
 Language: python 3.6. 
 
 Method: 
 
-1.Vgg-face net to extract face feature from face.
+1.Vgg-face net to extract human face from vedio.
 
-2.Establish net to learn face feature from audio data.
+2.Establish net to learn face from audio data.
 
-3.(this repo) Use GAN to generate face from face feature
+3.(this repo) Use rectified style-GAN to generate face from wav data
 
 4.VGG lip learning from audio
 
 # TODO list:
 
-- [ ] Download more data from YouTube and extract face(via vgg) and audio in order to get more advanced result.
-- [ ] Use other kind of net to generature face (may combined with optimization method)
-- [ ] adjust GAN network to add noise adquately in order to add more high frequency signal
+- [x] Download more data from YouTube and extract face(via vgg) and audio in order to get more advanced result.
+- [x] Use other kind of net to generature face (may combined with optimization method)
+- [x] adjust GAN network to add noise adquately in order to add more high frequency signal
 
 # How to run
 
